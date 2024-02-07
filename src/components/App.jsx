@@ -4,6 +4,8 @@ import { countPercentage } from '../helpers/helpers';
 import FeedbackOptions from './FeedbackWidget/FeedbackOptions';
 import Statistics from './Statistics/Statistics';
 import Section from './Section/Section';
+
+import css from './App.module.scss';
 class App extends Component {
   state = {
     good: 0,
@@ -30,25 +32,17 @@ class App extends Component {
   };
 
   getPositivePercentage = () => {
-    return this.state.good ? countPercentage(
-      this.state.neutral + this.state.bad + this.state.good,
-      this.state.good,
-    ).toFixed(2) : 0;
-  } 
+    return this.state.good
+      ? countPercentage(
+          this.state.neutral + this.state.bad + this.state.good,
+          this.state.good
+        ).toFixed(2)
+      : 0;
+  };
 
   render() {
     return (
-      <div
-        style={{
-          height: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
+      <div className={css.app}>
         <Section title="Please, leave feedback">
           <FeedbackOptions
             incrementBad={this.incrementBad}

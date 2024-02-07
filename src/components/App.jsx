@@ -1,8 +1,9 @@
 import { Component } from 'react';
 import { countPercentage } from '../helpers/helpers';
 
-import FeedbackOptions from './FeedbackWidget/FeedbackWidget';
+import FeedbackOptions from './FeedbackWidget/FeedbackOptions';
 import Statistics from './Statistics/Statistics';
+import Section from './Section/Section';
 class App extends Component {
   state = {
     good: 0,
@@ -18,15 +19,22 @@ class App extends Component {
 
   incrementNeutral = () => {
     this.setState(prevState => ({
-        neutral: prevState.neutral + 1,
+      neutral: prevState.neutral + 1,
     }));
   };
 
   incrementBad = () => {
-    this.setState((prevState) => ({
+    this.setState(prevState => ({
       bad: prevState.bad + 1,
     }));
-  }
+  };
+
+  getPositivePercentage = () => {
+    return this.state.good ? countPercentage(
+      this.state.neutral + this.state.bad + this.state.good,
+      this.state.good,
+    ).toFixed(2) : 0;
+  } 
 
   render() {
     return (
@@ -34,23 +42,28 @@ class App extends Component {
         style={{
           height: '100vh',
           display: 'flex',
+          flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           fontSize: 40,
           color: '#010101',
         }}
       >
-        <FeedbackOptions
-          incrementBad={this.incrementBad}
-          incrementGood={this.incrementGood}
-          incrementNeutral={this.incrementNeutral}
-        />
-        <Statistics
-          good={this.state.good}
-          neutral={this.state.neutral}
-          bad={this.state.bad}
-          positivePercentage={countPercentage(this.state.good, this.state.neutral + this.state.bad + this.state.good)}
-        />
+        <Section title="Please, leave feedback">
+          <FeedbackOptions
+            incrementBad={this.incrementBad}
+            incrementGood={this.incrementGood}
+            incrementNeutral={this.incrementNeutral}
+          />
+        </Section>
+        <Section title="Statistics">
+          <Statistics
+            good={this.state.good}
+            neutral={this.state.neutral}
+            bad={this.state.bad}
+            positivePercentage={this.getPositivePercentage()}
+          />
+        </Section>
       </div>
     );
   }

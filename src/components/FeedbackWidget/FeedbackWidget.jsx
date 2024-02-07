@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 
 
-import css from "./FeedbackWidget.module.css";
+import css from "./FeedbackWidget.module.scss";
 class FeedbackWidget extends Component {
     state = {
         good: 0,

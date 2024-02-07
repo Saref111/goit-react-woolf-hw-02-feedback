@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 
+
+import css from "./FeedbackWidget.module.css";
 class FeedbackWidget extends Component {
     state = {
         good: 0,
@@ -25,17 +27,31 @@ class FeedbackWidget extends Component {
         }));
     }
 
+    countTotalFeedback = () => {
+        return this.state.good + this.state.neutral + this.state.bad;
+    }
+
+    countPositiveFeedbackPercentage = () => {
+        return this.countTotalFeedback() === 0
+            ? 0
+            : Math.round((this.state.good / this.countTotalFeedback()) * 100);
+    }
+
     render() {
+        const positiveFeedbackCount = this.countPositiveFeedbackPercentage();
         return (
             <div>
-                <h1>Feedback Widget</h1>
-                <button onClick={this.incrementGood}>Good</button>
-                <button onClick={this.incrementNeutral}>Neutral</button>
-                <button onClick={this.incrementBad}>Bad</button>
-                <h2>Statistics</h2>
-                <p>Good: {this.state.good}</p>
-                <p>Neutral: {this.state.neutral}</p>
-                <p>Bad: {this.state.bad}</p>
+                <p className={css.title}>Feedback Widget</p>
+                <div className={css.buttonsWrapper}>
+                    <button className={css.button} onClick={this.incrementGood}>Good</button>
+                    <button className={css.button} onClick={this.incrementNeutral}>Neutral</button>
+                    <button className={css.button} onClick={this.incrementBad}>Bad</button>
+                </div>
+                <p className={css.title}>Statistics</p>
+                <label className={css.label}>Good: {this.state.good}</label>
+                <label className={css.label}>Neutral: {this.state.neutral}</label>
+                <label className={css.label}>Bad: {this.state.bad}</label>
+                <label className={css.label}>Positive feedback {positiveFeedbackCount} %</label>
             </div>
         );
     }

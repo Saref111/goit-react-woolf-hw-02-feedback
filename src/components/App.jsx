@@ -13,21 +13,9 @@ class App extends Component {
     bad: 0,
   };
 
-  incrementGood = () => {
-    this.setState(prevState => ({
-      good: prevState.good + 1,
-    }));
-  };
-
-  incrementNeutral = () => {
-    this.setState(prevState => ({
-      neutral: prevState.neutral + 1,
-    }));
-  };
-
-  incrementBad = () => {
-    this.setState(prevState => ({
-      bad: prevState.bad + 1,
+  incrementOption = (option) => {
+    this.setState((prevState) => ({
+      [option]: prevState[option] + 1,
     }));
   };
 
@@ -45,9 +33,8 @@ class App extends Component {
       <div className={css.app}>
         <Section title="Please, leave feedback">
           <FeedbackOptions
-            incrementBad={this.incrementBad}
-            incrementGood={this.incrementGood}
-            incrementNeutral={this.incrementNeutral}
+            options={this.state}
+            onLeaveFeedback={this.incrementOption}
           />
         </Section>
         <Section title="Statistics">

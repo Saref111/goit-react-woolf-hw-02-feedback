@@ -6,9 +6,15 @@ class FeedbackOptions extends Component {
     render() {
         return (
             <>
-                <button className={css.button} onClick={this.props.incrementGood}>Good</button>
-                <button className={css.button} onClick={this.props.incrementNeutral}>Neutral</button>
-                <button className={css.button} onClick={this.props.incrementBad}>Bad</button>
+                {Object.keys(this.props.options).map((option) => (
+                    <button
+                        key={option}
+                        className={css.button}
+                        onClick={() => this.props.onLeaveFeedback(option)}
+                    >
+                        {option}
+                    </button>
+                ))}
             </>
         );
     }

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {makeFirstLetterUppercase} from "../../helpers/helpers";
 
 import css from "./Statistics.module.scss";
 
@@ -10,18 +11,19 @@ class Statistics extends Component {
 
     render() {
         const {
-            good, 
-            neutral, 
-            bad,
+            options,
             positivePercentage,
         } = this.props;
+        
         return this.isEmpty() ? (
             <label className={css.label}>No feedback given</label>
         ) : (
             <>
-                <label className={css.label}>Good: {good}</label>
-                <label className={css.label}>Neutral: {neutral}</label>
-                <label className={css.label}>Bad: {bad}</label>
+                {Object.entries(options).map(([key, value]) => (
+                    <label key={key} className={css.label}>
+                        {makeFirstLetterUppercase(key)}: {value}
+                    </label>
+                ))}
                 <label className={css.label}>Positive feedback {positivePercentage} %</label>
             </>
         );

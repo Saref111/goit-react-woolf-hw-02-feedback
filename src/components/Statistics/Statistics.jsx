@@ -7,8 +7,7 @@ import css from './Statistics.module.scss';
 
 class Statistics extends Component {
   isEmpty = () => {
-    const { good, neutral, bad } = this.props.options;
-    return good === 0 && neutral === 0 && bad === 0;
+    return Object.values(this.props.options).every((value) => !value);
   };
 
   render() {

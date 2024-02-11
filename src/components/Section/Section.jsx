@@ -9,6 +9,6 @@ const Section = ({ title, children }) => {
       <div className={css.wrapper}>{children}</div>
     </section>
   );
-}
+};
 
 export default Section;

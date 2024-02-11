@@ -22,14 +22,11 @@ class App extends Component {
 
   countTotalFeedback = () => {
     return this.state.neutral + this.state.bad + this.state.good;
-}
+  };
 
   countPositiveFeedbackPercentage = () => {
     return this.state.good
-      ? countPercentage(
-        this.countTotalFeedback(),
-        this.state.good
-        ).toFixed(2)
+      ? countPercentage(this.countTotalFeedback(), this.state.good).toFixed(2)
       : 0;
   };
 
@@ -44,12 +41,14 @@ class App extends Component {
           />
         </Section>
         <Section title="Statistics">
-          {totalCount ? (<Statistics
-            options={this.state}
-            positivePercentage={this.countPositiveFeedbackPercentage()}
-          />) : (
-          <Notification message="No feedback given" className={css.label} />
-          ) }
+          {totalCount ? (
+            <Statistics
+              options={this.state}
+              positivePercentage={this.countPositiveFeedbackPercentage()}
+            />
+          ) : (
+            <Notification message="No feedback given" className={css.label} />
+          )}
         </Section>
       </div>
     );
